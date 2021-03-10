@@ -52,9 +52,7 @@ void setup() {
 void loop() {
   lcdSetup();
   lcd.print("Place empty cup");
-  while(!isCupEmpty()){
-    isCupEmpty();
-  }
+  while(!isCupEmpty()){}
   delay(2000);
   lcdSelect();
   delay(2000);
@@ -196,9 +194,7 @@ void loop() {
      break;
   }
   
-  while(!isRemoved()){
-    isRemoved();
-  }
+  while(!isRemoved()){}
 }
 
 void lcdSelect(){
@@ -285,27 +281,15 @@ bool selectDrink(){// Read the button state
 }
 
 bool isCupEmpty(){
-  bool cupEmpty;
   int distance;
   unsigned int uS = sonar.ping(); //Send ping, get pin time in microsconds (uS)
   distance = uS/US_ROUNDTRIP_CM; //Calculates the distance in centimeters
-  if(distance < 11 && distance > 8){
-    cupEmpty = true;
-  }
-  else{
-    cupEmpty = false;
-  }
-  return cupEmpty;
+  return (distance < 11 && distance > 8);
 }
 
 bool isRemoved(){
   int distance;
   unsigned int uS = sonar.ping(); //Send ping, get pin time in microsconds (uS)
   distance = uS/US_ROUNDTRIP_CM; //Calculates the distance in centimeters
-  if(distance < 8){
-    return false;
-  }
-  else{
-    return true;
-  }
+  return (! distance < 8);
 }
